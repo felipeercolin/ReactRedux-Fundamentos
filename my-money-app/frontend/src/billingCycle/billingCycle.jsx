@@ -10,17 +10,17 @@ import TabsContent from '../common/tab/tabsConent';
 import TabHeader from '../common/tab/tabHeader';
 import TabContent from '../common/tab/tabContent';
 
-import { selectTab,showTabs } from '../common/tab/tabActions';
-import { create } from './billingCycleActions';
+import { init, create, update,remove } from './billingCycleActions';
 
 import List from './billingCycleList';
 import Form from './billingCycleForm';
 
+import './billingCycleCss.css';
+
 class BillingCycle extends React.Component{
 
     componentWillMount(){
-        this.props.selectTab('tabList');
-        this.props.showTabs('tabList','tabCreate');
+        this.props.init();
     }
 
     render(){
@@ -40,13 +40,13 @@ class BillingCycle extends React.Component{
                                 <List />
                             </TabContent>
                             <TabContent id="tabCreate">
-                                <Form onSubmit={this.props.create} />
+                                <Form onSubmit={this.props.create} submitLabel="Incluir" submitClass="primary" submitIcon="plus" />
                             </TabContent>
                             <TabContent id="tabUpdate">
-                                <h1>Alterar</h1>
+                                <Form onSubmit={this.props.update} submitLabel="Alterar" submitClass="info" submitIcon="pencil" />
                             </TabContent>
                             <TabContent id="tabDelete">
-                                <h1>Excluir</h1>
+                                <Form onSubmit={this.props.remove} readOnly={true} submitLabel="Excluir" submitClass="danger" submitIcon="trash-o" />
                             </TabContent>
                         </TabsContent>
                     </Tabs>
@@ -57,5 +57,5 @@ class BillingCycle extends React.Component{
 }
 
 //const mapStateToProps = state => ({ tab: state.tab });
-const mapDispatchToProps = dispatch => bindActionCreators({ selectTab, showTabs, create }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ init, create, update,remove }, dispatch);
 export default connect(null, mapDispatchToProps)(BillingCycle);
