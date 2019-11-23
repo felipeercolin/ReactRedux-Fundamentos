@@ -23,7 +23,7 @@ class ItemList extends React.Component {
     renderRows(){
         const list = this.props.list || [];
         return list.map((item, index) => (
-            <tr key={item._id}>
+            <tr key={index}>
                 <td><Field name={`${this.props.field}[${index}].name`} component={Input} placeholder="Informe o Nome" readOnly={this.props.readOnly} /></td>
                 <td><Field name={`${this.props.field}[${index}].value`} component={Input} placeholder="Informe o Valor" readOnly={this.props.readOnly} /></td>
                 <IF test={this.props.showStatus}>
