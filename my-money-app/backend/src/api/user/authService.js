@@ -18,11 +18,11 @@ const login = (req, res, next) => {
     const email = req.body.email || '';
     const password = req.body.password || '';
 
-    User.findOne({email}, (err, user) => {
+    User.findOne({ email }, (err, user) => {
         if(err)
             return sendErrorsFromDb(res, err);
-        else if (user && bcrypt.compareSync(password, user.password)){
-            const token = jwt.sign(user, env.authSecret,{
+        else if (user && bcrypt.compareSync(password, user.password)) {
+            const token = jwt.sign({...user}, env.authSecret, {
                 expiresIn: "1 day"
             });
 
