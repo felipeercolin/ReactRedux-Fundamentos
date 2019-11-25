@@ -1,12 +1,34 @@
 const express = require('express');
+const auth = require('./auth');
 
 module.exports = function(server){
-    
+    /*
+    * Rotas protegidas por Token JWT
+    */
+    const protectedApi = express.Router();
+    server.use('/api', protectedApi);
+
+    protectedApi.use(auth);//passar pelo filtro de autenticacao
+
+    const BillingCycle = require('../api/billingCycle/billingCycleService');
+    BillingCycle.register(protectedApi, '/billingCycles');
+
+    /*
+    * Rotas Abertas
+    */
+    const openApi = express.Router();
+    server.use('/oapi', openApi);
+
+    const AuthService = require('../api/user/authService');
+    openApi.post('/login', AuthService.login);
+    openApi.post('/signup', AuthService.signup);
+    openApi.post('/validateToken', AuthService.validateToken);
+
     //Definir URL base para todas as rotas
-    const router = express.Router();
-    server.use('/api', router);
+    // const router = express.Router();
+    // server.use('/api', router);
 
     //Rotas do Ciclo de Pagamento
-    const BillingCycle = require('../api/billingCycle/billingCycleService');
-    BillingCycle.register(router, '/billingCycles');
+    // const BillingCycle = require('../api/billingCycle/billingCycleService');
+    // BillingCycle.register(router, '/billingCycles');
 };
