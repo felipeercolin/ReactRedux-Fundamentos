@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const env = require('../api/.env');
+const env = require('../.env');
 
 module.exports = (req, res, next) => {
     //CORS preflight request

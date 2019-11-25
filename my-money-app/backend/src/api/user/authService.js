@@ -2,7 +2,7 @@ const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const User = require('./user');
-const env = require('../.env');
+const env = require('../../.env');
 
 const emailRegex = /\S+@\S+\.\S+/;
 const passwordRegex = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})/;
@@ -47,7 +47,7 @@ const signup = (req, res, next) => {
     const name = req.body.name || '';
     const email = req.body.email || '';
     const password = req.body.password || '';
-    const confirmPassword = req.body.confirm_passoword || '';
+    const confirmPassword = req.body.confirm_password || '';
 
     if(!email.match(emailRegex)){
         return res.status(400).send({errors: ['O E-mail informado está no formato inválido']});
